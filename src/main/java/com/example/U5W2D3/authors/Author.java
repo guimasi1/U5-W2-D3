@@ -1,7 +1,9 @@
 package com.example.U5W2D3.authors;
 
 import com.example.U5W2D3.blogs.Blog;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,7 +29,6 @@ public class Author {
     private LocalDate birthday;
     private String avatarUrl;
     @OneToMany(mappedBy = "author")
-    @ToString.Exclude
     @Getter(AccessLevel.NONE)
     @JsonIgnore
     private List<Blog> blogList;

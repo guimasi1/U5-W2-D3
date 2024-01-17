@@ -1,6 +1,8 @@
 package com.example.U5W2D3.blogs;
 
 import com.example.U5W2D3.authors.Author;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 

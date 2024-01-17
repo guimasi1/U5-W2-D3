@@ -2,7 +2,6 @@ package com.example.U5W2D3.authors;
 
 import com.example.U5W2D3.exceptions.BadRequestException;
 import com.example.U5W2D3.exceptions.NotFoundException;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,6 +32,7 @@ public class AuthorsService {
         authorsDAO.findByEmail(author.getEmail()).ifPresent(author1 -> {
             throw new BadRequestException("Email " + author.getEmail() + " già in uso");
         });
+        author.setAvatarUrl("https://ui-avatars.com/api/?name=" + author.getName() + "+" + author.getSurname());
         author.setBirthday(LocalDate.of(rnd.nextInt(1940,2010),rnd.nextInt(1,13), rnd.nextInt(1,29)));
         return authorsDAO.save(author);
     }
