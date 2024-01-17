@@ -37,6 +37,15 @@ public class BlogsService {
         return blogsDAO.findByCategory(category, pageable);
     }
 
+    public Page<Blog> getByReadingTime(int readingTime, int page, int size, String orderBy) {
+        Pageable pageable = PageRequest.of(page,size,Sort.by(orderBy));
+        return blogsDAO.findByReadingTime(readingTime, pageable);
+    }
+    public Page<Blog> getByReadingTimeAndCategory(int readingTime, String category, int page, int size, String orderBy) {
+        Pageable pageable = PageRequest.of(page,size,Sort.by(orderBy));
+        return blogsDAO.findByReadingTimeAndCategory(readingTime,category,pageable);
+    }
+
 
 
     public Blog save(BlogsPayload blogsPayload) {
