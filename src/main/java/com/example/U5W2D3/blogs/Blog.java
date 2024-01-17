@@ -1,10 +1,10 @@
 package com.example.U5W2D3.blogs;
 
 import com.example.U5W2D3.authors.Author;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.UUID;
 
 @ToString
 @Getter
@@ -12,8 +12,11 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "blogs")
 public class Blog {
-    private int id;
+    @Id
+    @GeneratedValue
+    private UUID id;
     private String category;
     private String title;
     private String coverUrl;
@@ -23,4 +26,12 @@ public class Blog {
     @JoinColumn(name = "author_id")
     private Author author;
 
+    public Blog(String category, String title, String coverUrl, String content, int readingTime, Author author) {
+        this.category = category;
+        this.title = title;
+        this.coverUrl = coverUrl;
+        this.content = content;
+        this.readingTime = readingTime;
+        this.author = author;
+    }
 }

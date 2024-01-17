@@ -1,12 +1,13 @@
 package com.example.U5W2D3.authors;
 
 import com.example.U5W2D3.blogs.Blog;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -14,8 +15,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "authors")
 public class Author {
-    private int id;
+    @Id
+    @GeneratedValue
+    private UUID id;
     private String name;
     private String surname;
     private String email;
@@ -23,5 +27,7 @@ public class Author {
     private String avatarUrl;
     @OneToMany(mappedBy = "author")
     @ToString.Exclude
+    @Getter(AccessLevel.NONE)
+    @JsonIgnore
     private List<Blog> blogList;
 }

@@ -1,41 +1,46 @@
 package com.example.U5W2D3.authors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/authors")
 public class AuthorsController {
     @Autowired
-    AuthorsService authorsService;
+    private AuthorsService authorsService;
 
     @GetMapping
-    public List<Author> getAuthors(){
-        return authorsService.getAuthors();
+    public Page<Author> getAuthors(@RequestParam(defaultValue = "0") int page,
+                                   @RequestParam(defaultValue = "10") int size,
+                                   @RequestParam(defaultValue = "id") String id) {
+        return authorsService.getAuthors(page,size,id);
+    }
+
+    @GetMapping("/{uuid}")
+    public Author getAuthorById(@PathVariable UUID uuid) {
+        return authorsService.findById(uuid);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Author save(@RequestBody Author body) {
-        return authorsService.save(body);
+    public Author create(@RequestBody Author author) {
+        return authorsService.save(author);
     }
 
-    @GetMapping("/{id}")
-    public Author getById(@PathVariable int id) {
-        return authorsService.findById(id);
+    @PutMapping("/{uuid}")
+    public Author updateById(@PathVariable UUID uuid, @RequestBody Author body) {
+        return authorsService.findByIdAndUpdate(uuid, body);
     }
 
-    @PutMapping("/{id}")
-    public Author getByIdAndUpdate(@PathVariable int id, @RequestBody Author body) {
-        return authorsService.findByIdAndUpdate(id,body);
+    @DeleteMapping("/{uuid}")
+    public void deleteById(@PathVariable UUID uuid) {
+        authorsService.deleteById(uuid);
     }
 
-    @DeleteMapping("/{id}")
-    public void getByIdAndDelete(@PathVariable int id) {
-        authorsService.findByIdAndDelete(id);
-    }
 
 }
