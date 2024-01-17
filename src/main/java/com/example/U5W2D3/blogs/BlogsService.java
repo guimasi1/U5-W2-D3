@@ -14,6 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
 import java.util.UUID;
 
 
@@ -30,6 +31,13 @@ public class BlogsService {
         Pageable pageable = PageRequest.of(page,size, Sort.by(orderBy));
         return blogsDAO.findAll(pageable);
     }
+
+    public Page<Blog> getByCategory(String category, int page, int size, String orderBy) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
+        return blogsDAO.findByCategory(category, pageable);
+    }
+
+
 
     public Blog save(BlogsPayload blogsPayload) {
         blogsDAO.findByTitle(blogsPayload.getTitle()).ifPresent(author1 -> {
@@ -65,6 +73,7 @@ public class BlogsService {
         Blog found = this.findById(uuid);
         blogsDAO.delete(found);
     }
+
 
 
 }
