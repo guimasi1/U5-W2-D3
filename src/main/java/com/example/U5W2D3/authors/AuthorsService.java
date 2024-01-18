@@ -2,6 +2,7 @@ package com.example.U5W2D3.authors;
 
 import com.example.U5W2D3.exceptions.BadRequestException;
 import com.example.U5W2D3.exceptions.NotFoundException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,7 +12,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
 

@@ -50,7 +50,7 @@ public class BlogsService {
 
     public Blog save(BlogsPayload blogsPayload) {
         blogsDAO.findByTitle(blogsPayload.getTitle()).ifPresent(author1 -> {
-            throw new BadRequestException("Email " + blogsPayload.getTitle() + " già in uso");
+            throw new BadRequestException("Il titolo " + blogsPayload.getTitle() + " è già in uso");
         });
         Author author = authorsService.findById(UUID.fromString(blogsPayload.getAuthorURL()));
         String category = blogsPayload.getCategory();
